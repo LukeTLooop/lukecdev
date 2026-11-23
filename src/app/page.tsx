@@ -1,6 +1,6 @@
 import CopyDiscord from "@/components/CopyDiscord";
 import HeroVideo from "@/components/HeroVideo";
-import Logo from "@/components/Logo";
+import Nav from "@/components/Nav";
 import Starfield from "@/components/Starfield";
 import SystemCard from "@/components/SystemCard";
 import TypedName from "@/components/TypedName";
@@ -29,51 +29,23 @@ export default function Home() {
     <>
       <Starfield />
 
-      <header className="sticky top-0 z-40 border-b border-line/60 bg-void/75 backdrop-blur-md">
-        <nav aria-label="Main" className={`${wrap} flex h-16 items-center justify-between`}>
-          <a href="#top" className="rounded-md">
-            <Logo />
-          </a>
-          <div className="flex items-center gap-1 sm:gap-2">
-            <ul className="hidden items-center gap-1 md:flex">
-              {[
-                ["Systems", "#systems"],
-                ["Process", "#process"],
-                ["About", "#about"],
-              ].map(([label, href]) => (
-                <li key={href}>
-                  <a
-                    href={href}
-                    className="inline-flex min-h-11 items-center rounded-md px-3 text-dust transition-colors hover:text-star"
-                  >
-                    {label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <a
-              href="#hire"
-              className="ml-2 inline-flex min-h-10 items-center rounded-full bg-brand-strong px-5 text-sm font-semibold text-white transition-colors hover:bg-brand-hover"
-            >
-              Hire me
-            </a>
-          </div>
-        </nav>
-      </header>
+      <Nav wrap={wrap} />
 
       <main id="main">
         {/* Hero */}
         <section id="top" className="relative overflow-hidden pb-24 pt-10 sm:pt-14">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -right-40 -top-40 -z-10 size-[42rem] rounded-full bg-[radial-gradient(closest-side,rgba(123,76,242,0.28),transparent)]"
+            className="nebula pointer-events-none absolute -right-40 -top-40 -z-10 size-[42rem] rounded-full bg-[radial-gradient(closest-side,rgba(123,76,242,0.28),transparent)]"
           />
-          <div className={wrap}>
-            <TypedName text="Lukeyy" label="Lukeyy, Roblox scripter" />
+          <div className={`${wrap} sd-hero`}>
+            <div className="sd-name">
+              <TypedName text="Lukeyy" label="Lukeyy, Roblox scripter" />
+            </div>
           </div>
 
           {/* Full-bleed gameplay band: the page break between the name and everything else */}
-          <div className="relative mt-8 h-[26rem] overflow-hidden border-y border-line sm:h-[clamp(24rem,30vw,36rem)] lg:mt-12">
+          <div className="sd-band relative mt-8 h-[26rem] overflow-hidden border-y border-line sm:h-[clamp(24rem,30vw,36rem)] lg:mt-12">
             <HeroVideo src={heroVideo.src} poster={heroVideo.poster} />
             {/* Scrim keeps the overlaid copy readable whatever frame is showing */}
             <div
@@ -115,7 +87,7 @@ export default function Home() {
           <div className={wrap}>
             <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
               <SectionTitle id="systems">Systems I&apos;ve built</SectionTitle>
-              <p className="max-w-[44ch] text-dust">
+              <p className="sd-emerge max-w-[44ch] text-dust">
                 Every clip is recorded in-engine. Press play to watch one without leaving the page.
               </p>
             </div>
@@ -124,12 +96,16 @@ export default function Home() {
             <div className="mt-14 grid gap-14 md:grid-cols-2 md:gap-x-10">
               <div className="space-y-14">
                 {left.map((s) => (
-                  <SystemCard key={s.id} system={s} />
+                  <div key={s.id} className="sd-emerge">
+                    <SystemCard system={s} />
+                  </div>
                 ))}
               </div>
               <div className="space-y-14 md:pt-28">
                 {right.map((s) => (
-                  <SystemCard key={s.id} system={s} />
+                  <div key={s.id} className="sd-emerge">
+                    <SystemCard system={s} />
+                  </div>
                 ))}
               </div>
             </div>
@@ -141,21 +117,28 @@ export default function Home() {
           <div className={wrap}>
             <h2
               id="process"
-              className="outline-text font-display text-[clamp(2.75rem,9vw,7.5rem)] font-extrabold leading-none tracking-[-0.03em]"
+              className="sd-fill-scope outline-text relative font-display text-[clamp(2.75rem,9vw,7.5rem)] font-extrabold leading-none tracking-[-0.03em]"
             >
               How I work
+              {/* Solid copy revealed left to right by scroll (scroll-driven browsers only) */}
+              <span aria-hidden="true" className="sd-only sd-fill absolute inset-0 text-brand">
+                How I work
+              </span>
             </h2>
-            <ol className="mt-16 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
-              {process.map((step, i) => (
-                <li key={step.title} className="flex flex-col gap-4 bg-surface p-7 lg:min-h-72">
-                  <span className="font-display text-sm font-semibold text-brand">
-                    Step {i + 1}
-                  </span>
-                  <h3 className="font-display text-xl font-semibold tracking-[-0.01em]">{step.title}</h3>
-                  <p className="text-dust">{step.body}</p>
-                </li>
-              ))}
-            </ol>
+            <div className="sd-steps mt-16">
+              <div aria-hidden="true" className="sd-only mb-6 h-0.5 overflow-hidden rounded-full bg-line">
+                <div className="sd-steps-bar h-full bg-gradient-to-r from-brand-strong to-brand" />
+              </div>
+              <ol className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+                {process.map((step, i) => (
+                  <li key={step.title} className="flex flex-col gap-4 bg-surface p-7 lg:min-h-72">
+                    <span className="font-display text-sm font-semibold text-brand">Step {i + 1}</span>
+                    <h3 className="font-display text-xl font-semibold tracking-[-0.01em]">{step.title}</h3>
+                    <p className="text-dust">{step.body}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </div>
         </section>
 
@@ -164,7 +147,7 @@ export default function Home() {
           <div className={`${wrap} grid gap-14 lg:grid-cols-12`}>
             <div className="lg:col-span-5">
               <SectionTitle id="about">About me</SectionTitle>
-              <div className="mt-8 max-w-[52ch] space-y-5 text-dust">
+              <div className="sd-emerge mt-8 max-w-[52ch] space-y-5 text-dust">
                 <p>
                   I&apos;m Luke, a 20-year-old Roblox developer from the USA. I&apos;ve always loved
                   programming, and I started building on Roblox once I realized it let me make games
@@ -177,16 +160,18 @@ export default function Home() {
                 </p>
               </div>
 
-              <h3 className="mt-12 font-display text-lg font-semibold">What I do best</h3>
-              <p className="mt-1 text-sm text-dust">In order of how comfortable I am with each.</p>
-              <ol className="mt-5 space-y-3">
-                {strengths.map((s, i) => (
-                  <li key={s} className="flex items-baseline gap-4">
-                    <span className="font-display text-sm font-semibold text-brand">{i + 1}</span>
-                    <span className="text-lg">{s}</span>
-                  </li>
-                ))}
-              </ol>
+              <div className="sd-emerge">
+                <h3 className="mt-12 font-display text-lg font-semibold">What I do best</h3>
+                <p className="mt-1 text-sm text-dust">In order of how comfortable I am with each.</p>
+                <ol className="mt-5 space-y-3">
+                  {strengths.map((s, i) => (
+                    <li key={s} className="flex items-baseline gap-4">
+                      <span className="font-display text-sm font-semibold text-brand">{i + 1}</span>
+                      <span className="text-lg">{s}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
             </div>
 
             <div className="lg:col-span-7 lg:pt-2">
@@ -195,7 +180,7 @@ export default function Home() {
                 {record.map((r) => (
                   <li
                     key={r.name}
-                    className="grid gap-2 border-b border-line py-6 sm:grid-cols-[minmax(0,14rem)_1fr] sm:gap-8"
+                    className="sd-emerge grid gap-2 border-b border-line py-6 sm:grid-cols-[minmax(0,14rem)_1fr] sm:gap-8"
                   >
                     <span className="font-display font-semibold">{r.name}</span>
                     <span className="text-dust">
@@ -223,16 +208,16 @@ export default function Home() {
         <section aria-labelledby="hire" className="relative overflow-hidden pb-28 pt-16">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -bottom-72 left-1/2 -z-10 h-[36rem] w-[64rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(123,76,242,0.25),transparent)]"
+            className="nebula pointer-events-none absolute -bottom-72 left-1/2 -z-10 h-[36rem] w-[64rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(123,76,242,0.25),transparent)]"
           />
           <div className={wrap}>
             <h2
               id="hire"
               className="font-display text-[clamp(3rem,12vw,10.5rem)] font-extrabold leading-[0.95] tracking-[-0.035em]"
             >
-              Let&apos;s build it
+              <span className="sd-swell inline-block">Let&apos;s build it</span>
             </h2>
-            <div className="mt-12 grid gap-12 lg:grid-cols-12">
+            <div className="sd-emerge mt-12 grid gap-12 lg:grid-cols-12">
               <div className="lg:col-span-6">
                 <h3 className="font-display text-lg font-semibold">Pricing</h3>
                 <p className="mt-3 max-w-[52ch] text-dust">

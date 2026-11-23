@@ -30,7 +30,7 @@ export default function HeroVideo({ src, poster }: { src: string; poster: string
   }, [reduce]);
 
   return (
-    <div aria-hidden="true" className="absolute inset-0">
+    <div aria-hidden="true" className="sd-parallax absolute inset-0">
       <Image src={poster} alt="" fill priority sizes="100vw" className="object-cover" />
       <video
         ref={ref}

@@ -34,6 +34,24 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
+  /* Slim themed scrollbar: kept (not hidden) so the page length and drag-to-scroll stay available */
+  scrollbar-width: thin;
+  scrollbar-color: #6a58b8 transparent;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #6a58b8;
+  border: 2px solid var(--void);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand);
 }
 
 body {
@@ -79,6 +97,140 @@ h3 {
   color: var(--surface);
   -webkit-text-stroke: 3px var(--brand);
   paint-order: stroke fill;
+}
+
+/* ---------- Ambient + scroll-driven motion ----------
+   Everything below only runs when motion is welcome. Scroll-driven effects
+   also need browser support for animation-timeline; elsewhere the page is
+   simply static. Helpers marked .sd-only exist purely for these effects. */
+
+.sd-only {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Nebula glows drift slowly */
+  @keyframes nebula {
+    to {
+      transform: translate3d(-8%, 6%, 0) scale(1.18);
+      opacity: 0.75;
+    }
+  }
+  .nebula {
+    animation: nebula 16s ease-in-out infinite alternate;
+  }
+
+  @supports (animation-timeline: view()) {
+    .sd-only {
+      display: block;
+    }
+
+    /* Content comes out of the dark as it scrolls in, and sinks back on the way up */
+    @keyframes emerge {
+      from {
+        opacity: 0;
+        transform: translateY(2.5rem) scale(0.97);
+        filter: blur(6px);
+      }
+    }
+    .sd-emerge {
+      animation: emerge linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 85%;
+    }
+
+    /* Hero name lifts away and dims as the page scrolls past it */
+    .sd-hero {
+      view-timeline-name: --hero;
+    }
+    @keyframes name-away {
+      to {
+        opacity: 0.1;
+        transform: translateY(-35%) scale(0.94);
+        filter: blur(6px);
+      }
+    }
+    .sd-name {
+      animation: name-away linear both;
+      animation-timeline: --hero;
+      animation-range: exit 0% exit 60%;
+      transform-origin: 0 100%;
+    }
+
+    /* Video band: the clip moves slower than the page */
+    .sd-band {
+      view-timeline-name: --band;
+    }
+    @keyframes band-parallax {
+      from {
+        transform: translateY(-9%);
+      }
+      to {
+        transform: translateY(9%);
+      }
+    }
+    .sd-parallax {
+      inset: -11% 0 !important;
+      animation: band-parallax linear both;
+      animation-timeline: --band;
+      animation-range: cover 0% cover 100%;
+    }
+
+    /* "How I work" fills with purple as it crosses the screen */
+    .sd-fill-scope {
+      view-timeline-name: --fill;
+    }
+    @keyframes fill-in {
+      from {
+        clip-path: inset(0 100% 0 0);
+      }
+      to {
+        clip-path: inset(0 0 0 0);
+      }
+    }
+    .sd-fill {
+      animation: fill-in linear both;
+      animation-timeline: --fill;
+      animation-range: entry 60% cover 55%;
+    }
+
+    /* Progress line across the four steps */
+    .sd-steps {
+      view-timeline-name: --steps;
+    }
+    @keyframes grow-x {
+      from {
+        transform: scaleX(0);
+      }
+    }
+    .sd-steps-bar {
+      transform-origin: 0 50%;
+      animation: grow-x linear both;
+      animation-timeline: --steps;
+      animation-range: entry 40% cover 70%;
+    }
+
+    /* "Let's build it" swells into place */
+    @keyframes swell {
+      from {
+        opacity: 0.15;
+        transform: scale(0.82);
+      }
+    }
+    .sd-swell {
+      transform-origin: 0 100%;
+      animation: swell linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 45%;
+    }
+
+    /* Reading progress along the bottom of the nav */
+    .sd-progress {
+      transform-origin: 0 50%;
+      animation: grow-x linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
