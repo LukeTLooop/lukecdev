@@ -36,7 +36,7 @@ export default function Nav({ wrap }: { wrap: string }) {
   return (
     <header className="sticky top-0 z-40 border-b border-line/60 bg-void/75 backdrop-blur-md">
       <nav aria-label="Main" className={`${wrap} flex h-16 items-center justify-between`}>
-        <a href="#top" className="rounded-md">
+        <a href="#top" className="logo-link rounded-md">
           <Logo />
         </a>
         <div className="flex items-center gap-1 sm:gap-2">

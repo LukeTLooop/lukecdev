@@ -1,3 +1,4 @@
+import BackToTop from "@/components/BackToTop";
 import CopyDiscord from "@/components/CopyDiscord";
 import HeroVideo from "@/components/HeroVideo";
 import Nav from "@/components/Nav";
@@ -33,11 +34,11 @@ export default function Home() {
 
       <main id="main">
         {/* Hero */}
-        {/* Fills the first screen exactly: the band takes whatever height the name leaves,
-            within its min/max, so its bottom edge never dips past the fold */}
+        {/* Fills the first screen exactly (100svh minus the 65px nav): the band takes
+            whatever height the name leaves, so its bottom edge sits right on the fold */}
         <section
           id="top"
-          className="relative flex min-h-[calc(100svh-4rem)] flex-col overflow-hidden pb-6 pt-10 sm:pt-14"
+          className="relative flex min-h-[calc(100svh-4rem-1px)] flex-col overflow-hidden pt-10 sm:pt-14"
         >
           <div
             aria-hidden="true"
@@ -50,7 +51,7 @@ export default function Home() {
           </div>
 
           {/* Full-bleed gameplay band: the page break between the name and everything else */}
-          <div className="sd-band relative mt-8 flex min-h-[27rem] flex-1 flex-col overflow-hidden border-y border-line sm:max-h-[clamp(24rem,32vw,36rem)] sm:min-h-[20rem] lg:mt-10">
+          <div className="sd-band relative mt-8 flex min-h-[27rem] flex-1 flex-col overflow-hidden border-y border-line sm:min-h-[20rem] lg:mt-10">
             <HeroVideo src={heroVideo.src} poster={heroVideo.poster} />
             {/* Scrim keeps the overlaid copy readable whatever frame is showing */}
             <div
@@ -259,13 +260,12 @@ export default function Home() {
       </main>
 
       <footer className="border-t border-line">
-        <div className={`${wrap} flex flex-wrap items-center justify-between gap-4 py-8 text-sm text-dust`}>
+        <div className={`${wrap} py-8 text-sm text-dust`}>
           <p>© 2026 Lukeyy. Roblox scripter.</p>
-          <a href="#top" className="inline-flex min-h-11 items-center rounded-md hover:text-star">
-            Back to top
-          </a>
         </div>
       </footer>
+
+      <BackToTop />
     </>
   );
 }

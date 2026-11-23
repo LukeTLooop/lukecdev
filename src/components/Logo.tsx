@@ -58,6 +58,9 @@ export default function Logo() {
           <path className="bh-orbit bh-orbit-back" d={back} pathLength={100} fill="none" stroke="#fff" strokeWidth="9" strokeLinecap="round" />
         </g>
 
+        {/* Shockwave that rings out from the hole on hover */}
+        <circle className="bh-ripple" cx="262" cy="248" r="114" fill="none" stroke="#c4a8ff" strokeWidth="10" />
+
         {/* The hole and its photon ring */}
         <circle className="bh-ring" cx="262" cy="248" r="124" fill="#7b4cf2" opacity="0.3" />
         <circle cx="262" cy="248" r="114" fill="#5a26cf" />
@@ -82,7 +85,7 @@ export default function Logo() {
         <circle className="bh-spark bh-spark-2" cx="423" cy="135" r="8" fill="#7ff0ff" />
         <circle className="bh-spark bh-spark-3" cx="420" cy="355" r="6" fill="#f4a6f0" />
       </svg>
-      Lukeyy
+      <span className="bh-word">Lukeyy</span>
     </span>
   );
 }
