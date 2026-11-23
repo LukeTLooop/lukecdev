@@ -1,69 +1,268 @@
-import Image from "next/image";
+import CopyDiscord from "@/components/CopyDiscord";
+import HeroClip from "@/components/HeroClip";
+import Logo, { PlanetMark } from "@/components/Logo";
+import Starfield from "@/components/Starfield";
+import SystemCard from "@/components/SystemCard";
+import TypedName from "@/components/TypedName";
+import { contact, heroClipId, process, record, strengths, systems } from "@/lib/content";
+
+const wrap = "mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10";
+
+function SectionTitle({ id, children }: { id: string; children: React.ReactNode }) {
+  return (
+    <h2
+      id={id}
+      className="flex items-center gap-3 font-display text-[clamp(1.75rem,4vw,2.75rem)] font-bold tracking-[-0.02em]"
+    >
+      <PlanetMark className="size-6 shrink-0" />
+      {children}
+    </h2>
+  );
+}
 
 export default function Home() {
+  const left = systems.filter((_, i) => i % 2 === 0);
+  const right = systems.filter((_, i) => i % 2 === 1);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
+    <>
+      <Starfield />
+
+      <header className="sticky top-0 z-40 border-b border-line/60 bg-void/75 backdrop-blur-md">
+        <nav aria-label="Main" className={`${wrap} flex h-16 items-center justify-between`}>
+          <a href="#top" className="rounded-md">
+            <Logo />
           </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+          <div className="flex items-center gap-1 sm:gap-2">
+            <ul className="hidden items-center gap-1 md:flex">
+              {[
+                ["Systems", "#systems"],
+                ["Process", "#process"],
+                ["About", "#about"],
+              ].map(([label, href]) => (
+                <li key={href}>
+                  <a
+                    href={href}
+                    className="inline-flex min-h-11 items-center rounded-md px-3 text-dust transition-colors hover:text-star"
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a
+              href="#hire"
+              className="ml-2 inline-flex min-h-10 items-center rounded-full bg-brand-strong px-5 text-sm font-semibold text-white transition-colors hover:bg-brand-hover"
+            >
+              Hire me
+            </a>
+          </div>
+        </nav>
+      </header>
+
+      <main id="main">
+        {/* Hero */}
+        <section id="top" className="relative overflow-hidden pb-24 pt-10 sm:pt-14">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-40 -top-40 -z-10 size-[42rem] rounded-full bg-[radial-gradient(closest-side,rgba(123,76,242,0.28),transparent)]"
+          />
+          <div className={wrap}>
+            <TypedName text="Lukeyy" label="Lukeyy, Roblox scripter" />
+
+            <div className="mt-8 grid gap-10 lg:mt-12 lg:grid-cols-12 lg:gap-12">
+              <div className="lg:col-span-7">
+                <HeroClip id={heroClipId} title="Grappling system" />
+              </div>
+              <div className="flex flex-col justify-between gap-10 lg:col-span-5">
+                <div className="space-y-5">
+                  <p className="max-w-[34ch] text-[clamp(1.25rem,2.2vw,1.6rem)] leading-snug text-star">
+                    Roblox scripter building movement, combat and physics systems that feel right the
+                    moment a player grabs the controls.
+                  </p>
+                  <p className="max-w-[46ch] text-dust">
+                    I&apos;m Luke, a scripter before anything else. My work has shipped in a project that
+                    reached more than 80,000 players.
+                  </p>
+                </div>
+                <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+                  <a
+                    href="#hire"
+                    className="inline-flex min-h-12 items-center rounded-full bg-brand-strong px-6 font-semibold text-white transition-colors hover:bg-brand-hover"
+                  >
+                    Start a project
+                  </a>
+                  <a
+                    href="#systems"
+                    className="inline-flex min-h-12 items-center font-semibold text-brand underline decoration-brand/40 underline-offset-4 transition-colors hover:decoration-brand"
+                  >
+                    Watch the systems
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Systems */}
+        <section aria-labelledby="systems" className="py-24">
+          <div className={wrap}>
+            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+              <SectionTitle id="systems">Systems I&apos;ve built</SectionTitle>
+              <p className="max-w-[44ch] text-dust">
+                Every clip is recorded in-engine. Press play to watch one without leaving the page.
+              </p>
+            </div>
+
+            {/* Two staggered columns, like a flight path. Single column on phones. */}
+            <div className="mt-14 grid gap-14 md:grid-cols-2 md:gap-x-10">
+              <div className="space-y-14">
+                {left.map((s) => (
+                  <SystemCard key={s.id} system={s} />
+                ))}
+              </div>
+              <div className="space-y-14 md:pt-28">
+                {right.map((s) => (
+                  <SystemCard key={s.id} system={s} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Process */}
+        <section aria-labelledby="process" className="border-y border-line bg-surface/70 py-24 backdrop-blur-[2px]">
+          <div className={wrap}>
+            <h2
+              id="process"
+              className="outline-text font-display text-[clamp(2.75rem,9vw,7.5rem)] font-extrabold leading-none tracking-[-0.03em]"
+            >
+              How I work
+            </h2>
+            <ol className="mt-16 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+              {process.map((step, i) => (
+                <li key={step.title} className="flex flex-col gap-4 bg-surface p-7 lg:min-h-72">
+                  <span className="font-display text-sm font-semibold text-brand">
+                    Step {i + 1}
+                  </span>
+                  <h3 className="font-display text-xl font-semibold tracking-[-0.01em]">{step.title}</h3>
+                  <p className="text-dust">{step.body}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* About */}
+        <section aria-labelledby="about" className="py-24">
+          <div className={`${wrap} grid gap-14 lg:grid-cols-12`}>
+            <div className="lg:col-span-5">
+              <SectionTitle id="about">About me</SectionTitle>
+              <div className="mt-8 max-w-[52ch] space-y-5 text-dust">
+                <p>
+                  I&apos;m Luke, a 20-year-old Roblox developer from the USA. I&apos;ve always loved
+                  programming, and I started building on Roblox once I realized it let me make games
+                  with mechanics nobody else had.
+                </p>
+                <p>
+                  I take on all kinds of work, but I&apos;m happiest on projects built around an unusual
+                  mechanic. That&apos;s where I learn the most, and it&apos;s how I want to leave a mark
+                  on the games industry.
+                </p>
+              </div>
+
+              <h3 className="mt-12 font-display text-lg font-semibold">What I do best</h3>
+              <p className="mt-1 text-sm text-dust">In order of how comfortable I am with each.</p>
+              <ol className="mt-5 space-y-3">
+                {strengths.map((s, i) => (
+                  <li key={s} className="flex items-baseline gap-4">
+                    <span className="font-display text-sm font-semibold text-brand">{i + 1}</span>
+                    <span className="text-lg">{s}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            <div className="lg:col-span-7 lg:pt-2">
+              <h3 className="font-display text-lg font-semibold">Track record</h3>
+              <ul className="mt-5 border-t border-line">
+                {record.map((r) => (
+                  <li
+                    key={r.name}
+                    className="grid gap-2 border-b border-line py-6 sm:grid-cols-[minmax(0,14rem)_1fr] sm:gap-8"
+                  >
+                    <span className="font-display font-semibold">{r.name}</span>
+                    <span className="text-dust">
+                      {r.detail}{" "}
+                      {r.href && (
+                        <a
+                          href={r.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-semibold text-brand underline decoration-brand/40 underline-offset-4 hover:decoration-brand"
+                        >
+                          {r.linkLabel}
+                          <span className="sr-only"> (opens in a new tab)</span>
+                        </a>
+                      )}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* Hire */}
+        <section aria-labelledby="hire" className="relative overflow-hidden pb-28 pt-16">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-72 left-1/2 -z-10 h-[36rem] w-[64rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(123,76,242,0.25),transparent)]"
+          />
+          <div className={wrap}>
+            <h2
+              id="hire"
+              className="font-display text-[clamp(3rem,12vw,10.5rem)] font-extrabold leading-[0.95] tracking-[-0.035em]"
+            >
+              Let&apos;s build it
+            </h2>
+            <div className="mt-12 grid gap-12 lg:grid-cols-12">
+              <div className="lg:col-span-6">
+                <h3 className="font-display text-lg font-semibold">Pricing</h3>
+                <p className="mt-3 max-w-[52ch] text-dust">
+                  Every project is priced on its difficulty, the time it takes and the assets it needs. I
+                  accept USD and Robux, and we agree on the price together so it&apos;s fair for both sides.
+                </p>
+              </div>
+              <div className="space-y-6 lg:col-span-6">
+                <h3 className="font-display text-lg font-semibold">Get in touch</h3>
+                <p className="text-dust">
+                  Discord is the fastest way to reach me: <span className="text-star">{contact.discord}</span>
+                </p>
+                <CopyDiscord handle={contact.discord} />
+                <p className="text-dust">
+                  Prefer email?{" "}
+                  <a
+                    href={`mailto:${contact.email}`}
+                    className="font-semibold text-brand underline decoration-brand/40 underline-offset-4 hover:decoration-brand"
+                  >
+                    {contact.email}
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
-    </div>
+
+      <footer className="border-t border-line">
+        <div className={`${wrap} flex flex-wrap items-center justify-between gap-4 py-8 text-sm text-dust`}>
+          <p>© 2026 Lukeyy. Roblox scripter.</p>
+          <a href="#top" className="inline-flex min-h-11 items-center rounded-md hover:text-star">
+            Back to top
+          </a>
+        </div>
+      </footer>
+    </>
   );
 }
