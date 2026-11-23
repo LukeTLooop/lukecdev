@@ -33,7 +33,12 @@ export default function Home() {
 
       <main id="main">
         {/* Hero */}
-        <section id="top" className="relative overflow-hidden pb-24 pt-10 sm:pt-14">
+        {/* Fills the first screen exactly: the band takes whatever height the name leaves,
+            within its min/max, so its bottom edge never dips past the fold */}
+        <section
+          id="top"
+          className="relative flex min-h-[calc(100svh-4rem)] flex-col overflow-hidden pb-6 pt-10 sm:pt-14"
+        >
           <div
             aria-hidden="true"
             className="nebula pointer-events-none absolute -right-40 -top-40 -z-10 size-[42rem] rounded-full bg-[radial-gradient(closest-side,rgba(123,76,242,0.28),transparent)]"
@@ -45,40 +50,47 @@ export default function Home() {
           </div>
 
           {/* Full-bleed gameplay band: the page break between the name and everything else */}
-          <div className="sd-band relative mt-8 h-[26rem] overflow-hidden border-y border-line sm:h-[clamp(24rem,30vw,36rem)] lg:mt-12">
+          <div className="sd-band relative mt-8 flex min-h-[27rem] flex-1 flex-col overflow-hidden border-y border-line sm:max-h-[clamp(24rem,32vw,36rem)] sm:min-h-[20rem] lg:mt-10">
             <HeroVideo src={heroVideo.src} poster={heroVideo.poster} />
             {/* Scrim keeps the overlaid copy readable whatever frame is showing */}
             <div
               aria-hidden="true"
               className="absolute inset-0 bg-gradient-to-t from-void via-void/75 to-void/10 sm:bg-gradient-to-r sm:from-void/95 sm:via-void/65 sm:to-transparent"
             />
-            <div className={`${wrap} relative flex h-full items-end pb-8 sm:items-center sm:pb-0`}>
-              <div className="max-w-xl space-y-4">
+            <div className={`${wrap} relative flex flex-1 items-end py-8 sm:items-center`}>
+              <div className="max-w-xl">
                 <p className="text-[clamp(1.25rem,2.2vw,1.75rem)] leading-snug text-star [text-shadow:0_1px_12px_rgba(13,10,28,0.7)]">
                   Roblox scripter building movement, combat and physics systems that feel right the moment
                   a player grabs the controls.
                 </p>
-                <p className="max-w-[46ch] text-star/80 [text-shadow:0_1px_10px_rgba(13,10,28,0.8)]">
+                <p className="mt-4 max-w-[46ch] text-star/80 [text-shadow:0_1px_10px_rgba(13,10,28,0.8)]">
                   I&apos;m Luke, a scripter before anything else. My work has shipped in a project that
                   reached more than 80,000 players.
                 </p>
+                <div className="mt-7 flex flex-wrap items-center gap-3">
+                  <a
+                    href="#hire"
+                    className="group inline-flex min-h-12 items-center gap-2 rounded-full bg-brand-strong px-6 font-semibold text-white shadow-[0_8px_30px_-8px_rgba(123,76,242,0.8)] transition-colors hover:bg-brand-hover"
+                  >
+                    Start a project
+                    <svg aria-hidden="true" viewBox="0 0 16 16" className="size-4 transition-transform group-hover:translate-x-0.5">
+                      <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </a>
+                  <a
+                    href="#systems"
+                    className="inline-flex min-h-12 items-center gap-2.5 rounded-full border border-star/25 bg-void/45 px-5 font-semibold text-star backdrop-blur-md transition-colors hover:border-brand hover:bg-void/65"
+                  >
+                    <span aria-hidden="true" className="grid size-6 place-items-center rounded-full bg-star/15">
+                      <svg viewBox="0 0 12 12" className="ml-px size-2.5">
+                        <path d="M3 1.8v8.4L10 6z" fill="currentColor" />
+                      </svg>
+                    </span>
+                    Watch the systems
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className={`${wrap} mt-8 flex flex-wrap items-center gap-x-6 gap-y-3`}>
-            <a
-              href="#hire"
-              className="inline-flex min-h-12 items-center rounded-full bg-brand-strong px-6 font-semibold text-white transition-colors hover:bg-brand-hover"
-            >
-              Start a project
-            </a>
-            <a
-              href="#systems"
-              className="inline-flex min-h-12 items-center font-semibold text-brand underline decoration-brand/40 underline-offset-4 transition-colors hover:decoration-brand"
-            >
-              Watch the systems
-            </a>
           </div>
         </section>
 

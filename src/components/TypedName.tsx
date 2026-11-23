@@ -28,7 +28,7 @@ export default function TypedName({ text, label }: { text: string; label: string
   }, [text, reduce]);
 
   return (
-    <h1 className="font-display text-[clamp(3.25rem,15.5vw,13.5rem)] font-extrabold leading-[0.95] tracking-[-0.03em]">
+    <h1 className="font-display text-[clamp(3.25rem,min(15.5vw,22svh),13.5rem)] font-extrabold leading-[0.95] tracking-[-0.03em]">
       <span className="sr-only">{label}</span>
       <span aria-hidden="true" className="relative inline-grid">
         <span className="invisible col-start-1 row-start-1">

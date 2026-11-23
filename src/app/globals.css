@@ -108,7 +108,72 @@ h3 {
   display: none;
 }
 
+/* Logo: orbit streaks rest just off the path, so they're invisible when static */
+.bh-orbit {
+  stroke-dasharray: 12 200;
+  stroke-dashoffset: 12;
+  opacity: 0.9;
+}
+.bh-spark {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
 @media (prefers-reduced-motion: no-preference) {
+  /* Logo: light travels under the hole, then round the far side behind it */
+  @keyframes bh-orbit {
+    0% {
+      stroke-dashoffset: 12;
+    }
+    50%,
+    100% {
+      stroke-dashoffset: -100;
+    }
+  }
+  .bh-orbit {
+    animation: bh-orbit 4s linear infinite;
+  }
+  .bh-orbit-back {
+    opacity: 0.55;
+    animation-delay: -2s;
+  }
+  @keyframes bh-ring {
+    50% {
+      opacity: 0.6;
+    }
+  }
+  .bh-ring {
+    animation: bh-ring 4s ease-in-out infinite;
+  }
+  @keyframes bh-halo {
+    50% {
+      opacity: 0.55;
+    }
+  }
+  .bh-halo {
+    animation: bh-halo 6s ease-in-out infinite;
+  }
+  @keyframes bh-spark {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.2;
+      transform: scale(0.5);
+    }
+  }
+  .bh-spark {
+    animation: bh-spark 2.6s ease-in-out infinite;
+  }
+  .bh-spark-2 {
+    animation-delay: -0.9s;
+  }
+  .bh-spark-3 {
+    animation-delay: -1.7s;
+  }
+
   /* Nebula glows drift slowly */
   @keyframes nebula {
     to {
