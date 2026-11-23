@@ -1,10 +1,10 @@
 import CopyDiscord from "@/components/CopyDiscord";
-import HeroClip from "@/components/HeroClip";
-import Logo, { PlanetMark } from "@/components/Logo";
+import HeroVideo from "@/components/HeroVideo";
+import Logo from "@/components/Logo";
 import Starfield from "@/components/Starfield";
 import SystemCard from "@/components/SystemCard";
 import TypedName from "@/components/TypedName";
-import { contact, heroClipId, process, record, strengths, systems } from "@/lib/content";
+import { contact, heroVideo, process, record, strengths, systems } from "@/lib/content";
 
 const wrap = "mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10";
 
@@ -14,7 +14,8 @@ function SectionTitle({ id, children }: { id: string; children: React.ReactNode 
       id={id}
       className="flex items-center gap-3 font-display text-[clamp(1.75rem,4vw,2.75rem)] font-bold tracking-[-0.02em]"
     >
-      <PlanetMark className="size-6 shrink-0" />
+      {/* Event-horizon marker: a brand ring around the void */}
+      <span aria-hidden="true" className="size-4 shrink-0 rounded-full border-[3px] border-brand" />
       {children}
     </h2>
   );
@@ -69,38 +70,43 @@ export default function Home() {
           />
           <div className={wrap}>
             <TypedName text="Lukeyy" label="Lukeyy, Roblox scripter" />
+          </div>
 
-            <div className="mt-8 grid gap-10 lg:mt-12 lg:grid-cols-12 lg:gap-12">
-              <div className="lg:col-span-7">
-                <HeroClip id={heroClipId} title="Grappling system" />
-              </div>
-              <div className="flex flex-col justify-between gap-10 lg:col-span-5">
-                <div className="space-y-5">
-                  <p className="max-w-[34ch] text-[clamp(1.25rem,2.2vw,1.6rem)] leading-snug text-star">
-                    Roblox scripter building movement, combat and physics systems that feel right the
-                    moment a player grabs the controls.
-                  </p>
-                  <p className="max-w-[46ch] text-dust">
-                    I&apos;m Luke, a scripter before anything else. My work has shipped in a project that
-                    reached more than 80,000 players.
-                  </p>
-                </div>
-                <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-                  <a
-                    href="#hire"
-                    className="inline-flex min-h-12 items-center rounded-full bg-brand-strong px-6 font-semibold text-white transition-colors hover:bg-brand-hover"
-                  >
-                    Start a project
-                  </a>
-                  <a
-                    href="#systems"
-                    className="inline-flex min-h-12 items-center font-semibold text-brand underline decoration-brand/40 underline-offset-4 transition-colors hover:decoration-brand"
-                  >
-                    Watch the systems
-                  </a>
-                </div>
+          {/* Full-bleed gameplay band: the page break between the name and everything else */}
+          <div className="relative mt-8 h-[26rem] overflow-hidden border-y border-line sm:h-[clamp(24rem,30vw,36rem)] lg:mt-12">
+            <HeroVideo src={heroVideo.src} poster={heroVideo.poster} />
+            {/* Scrim keeps the overlaid copy readable whatever frame is showing */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-t from-void via-void/75 to-void/10 sm:bg-gradient-to-r sm:from-void/95 sm:via-void/65 sm:to-transparent"
+            />
+            <div className={`${wrap} relative flex h-full items-end pb-8 sm:items-center sm:pb-0`}>
+              <div className="max-w-xl space-y-4">
+                <p className="text-[clamp(1.25rem,2.2vw,1.75rem)] leading-snug text-star [text-shadow:0_1px_12px_rgba(13,10,28,0.7)]">
+                  Roblox scripter building movement, combat and physics systems that feel right the moment
+                  a player grabs the controls.
+                </p>
+                <p className="max-w-[46ch] text-star/80 [text-shadow:0_1px_10px_rgba(13,10,28,0.8)]">
+                  I&apos;m Luke, a scripter before anything else. My work has shipped in a project that
+                  reached more than 80,000 players.
+                </p>
               </div>
             </div>
+          </div>
+
+          <div className={`${wrap} mt-8 flex flex-wrap items-center gap-x-6 gap-y-3`}>
+            <a
+              href="#hire"
+              className="inline-flex min-h-12 items-center rounded-full bg-brand-strong px-6 font-semibold text-white transition-colors hover:bg-brand-hover"
+            >
+              Start a project
+            </a>
+            <a
+              href="#systems"
+              className="inline-flex min-h-12 items-center font-semibold text-brand underline decoration-brand/40 underline-offset-4 transition-colors hover:decoration-brand"
+            >
+              Watch the systems
+            </a>
           </div>
         </section>
 

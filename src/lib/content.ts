@@ -12,7 +12,11 @@ export type System = {
   summary: string;
 };
 
-export const heroClipId = "mbixNk3FfYI"; // Grappling showcase
+// Hero background clip. Drop the file at public/hero.mp4; until then the poster shows.
+export const heroVideo = {
+  src: "/hero.mp4",
+  poster: "https://i.ytimg.com/vi/mbixNk3FfYI/maxresdefault.jpg", // Grappling showcase frame
+};
 
 export const systems: System[] = [
   {
