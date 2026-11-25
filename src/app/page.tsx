@@ -66,7 +66,7 @@ export default function Home() {
                 </p>
                 <p className="mt-4 max-w-[46ch] text-star/80 [text-shadow:0_1px_10px_rgba(13,10,28,0.8)]">
                   I&apos;m Luke, a scripter before anything else. My work has shipped in a project that
-                  reached more than 80,000 players.
+                  reached more than 2.2 million players.
                 </p>
                 <div className="mt-7 flex flex-wrap items-center gap-3">
                   <a
@@ -109,14 +109,14 @@ export default function Home() {
             <div className="mt-14 grid gap-14 md:grid-cols-2 md:gap-x-10">
               <div className="space-y-14">
                 {left.map((s) => (
-                  <div key={s.id} className="sd-emerge">
+                  <div key={s.title} className="sd-emerge">
                     <SystemCard system={s} />
                   </div>
                 ))}
               </div>
               <div className="space-y-14 md:pt-28">
                 {right.map((s) => (
-                  <div key={s.id} className="sd-emerge">
+                  <div key={s.title} className="sd-emerge">
                     <SystemCard system={s} />
                   </div>
                 ))}
@@ -162,7 +162,7 @@ export default function Home() {
               <SectionTitle id="about">About me</SectionTitle>
               <div className="sd-emerge mt-8 max-w-[52ch] space-y-5 text-dust">
                 <p>
-                  I&apos;m Luke, a 20-year-old Roblox developer from the USA. I&apos;ve always loved
+                  I&apos;m Luke, a 22-year-old Roblox developer from the USA. I&apos;ve always loved
                   programming, and I started building on Roblox once I realized it let me make games
                   with mechanics nobody else had.
                 </p>

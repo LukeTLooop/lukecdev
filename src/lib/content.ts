@@ -5,75 +5,110 @@ export const contact = {
   email: "lukey@lukec.dev",
 };
 
+// A system's clip is either a YouTube video or a self-hosted file in public/videos.
+// Self-hosted clips need a poster frame in public/videos/posters.
+export type SystemMedia =
+  | { kind: "youtube"; id: string }
+  | { kind: "file"; src: string; poster: string };
+
 export type System = {
-  id: string; // YouTube video id
   title: string;
   tags: string[];
   summary: string;
+  media: SystemMedia;
 };
 
-// Hero background clip. Drop the file at public/hero.mp4; until then the poster shows.
+const file = (name: string): SystemMedia => ({
+  kind: "file",
+  src: `/videos/${name}.mp4`,
+  poster: `/videos/posters/${name}.jpg`,
+});
+const youtube = (id: string): SystemMedia => ({ kind: "youtube", id });
+
+// Hero background clip: short, fast and recorded full screen, so it loops cleanly.
 export const heroVideo = {
-  src: "/hero.mp4",
-  poster: "https://i.ytimg.com/vi/mbixNk3FfYI/maxresdefault.jpg", // Grappling showcase frame
+  src: "/videos/vaulting-and-swinging-hero.mp4", // silent, lighter encode of the card clip
+  poster: "/videos/posters/vaulting-and-swinging.jpg",
 };
 
+// Shown in two staggered columns: even entries on the left, odd on the right.
 export const systems: System[] = [
   {
-    id: "mbixNk3FfYI",
     title: "AOT-style grappling",
     tags: ["Movement", "Physics", "Animation"],
     summary:
       "Full directional control mid-swing: W to rise, S to drop, A and D to steer, with flying animations that sell the speed.",
+    media: youtube("mbixNk3FfYI"),
   },
   {
-    id: "5Beu_BJKFU8",
+    title: "M1 combat and air combos",
+    tags: ["Combat", "Physics"],
+    summary:
+      "A 5-hit katana M1 combo with hit effects, knockback and ragdolls, plus air combos that launch a target and follow it up. Shown against practice dummies, including ones that block.",
+    media: file("m1-combat-and-air-combos"),
+  },
+  {
+    title: "Vaulting and bar swinging",
+    tags: ["Movement", "Animation"],
+    summary:
+      "Fast parkour through an obstacle course: vault over ledges and walls without losing speed, and swing around bars to launch into the next section.",
+    media: file("vaulting-and-swinging"),
+  },
+  {
+    title: "Wall climbing and wall hops",
+    tags: ["Movement", "Physics"],
+    summary:
+      "8-directional climbing that holds onto walls at any angle, with ledge climb-ups and camera-aimed jump-offs, plus platformer-style wall hops between narrow walls.",
+    media: file("wall-climb-and-wall-hop"),
+  },
+  {
+    title: "Workers, shop and placement",
+    tags: ["Tycoon", "Systems", "UI"],
+    summary:
+      "The core loop of Factory Freaks, a factory tycoon: hire workers from the Worker Depot, place them and their stations on your plot, and collect the skateboard parts they produce as cash. Production runs on the server, with live output per minute.",
+    media: file("workers-shop-and-placement"),
+  },
+  {
+    title: "Incremental mechanics",
+    tags: ["Simulator", "Systems", "UI"],
+    summary:
+      "Progression for Screws and Cogs Simulator: gain screws to level up, spend them on boosts with Buy One, Next and Max, then push into masteries as the numbers climb into huge abbreviated values.",
+    media: file("incremental-mechanics"),
+  },
+  {
     title: "Custom character controller",
     tags: ["Movement", "Physics"],
     summary:
       "Humanoid-free movement on a custom rig using ControllerManager and custom physics. Built to be extended, not rewritten.",
+    media: youtube("5Beu_BJKFU8"),
   },
   {
-    id: "h_s0AI0Lpvw",
-    title: "Wall climbing",
-    tags: ["Movement"],
+    title: "Muscle growth and boxing bag",
+    tags: ["Simulator", "Systems", "Data"],
     summary:
-      "8-directional climbing with floor and ledge detection, ledge climb-ups, wall-to-wall jumps and jump-offs aimed by the camera.",
+      "From a boxing simulator: bench press to build strength and watch the character bulk up with it, then train on a punching bag. Progress saves between sessions with ProfileService.",
+    media: file("muscle-growth-and-boxing-bag"),
   },
   {
-    id: "DwT5H_8QP7w",
-    title: "M1 combat and air combos",
-    tags: ["Combat"],
+    title: "Invaders-style framework",
+    tags: ["Arcade", "OOP"],
     summary:
-      "A 5-hit M1 combo, air combos, blocking and weapons, built as the base for a battlegrounds-style game.",
+      "Ro-Invaders, an arcade shooter built as an object-oriented framework: player and enemy ships extend one shared spaceship class, and a game manager runs each round.",
+    media: file("invaders-style-framework"),
   },
   {
-    id: "kecYc7lpH_w",
-    title: "Wall hops",
-    tags: ["Movement", "Physics"],
-    summary:
-      "Platformer-style wall hopping with physics values that are easy to tune per map.",
-  },
-  {
-    id: "lT3IK_Ocy1Q",
     title: "Inventory",
     tags: ["Systems", "UI"],
     summary:
       "Drag items between slots, equip and unequip them, and drop them into the world.",
+    media: youtube("lT3IK_Ocy1Q"),
   },
   {
-    id: "LfMPQ54kd6I",
-    title: "Simulator mechanics",
-    tags: ["Systems"],
-    summary:
-      "Mechanics built and refined for Screws and Cogs Simulator, a live simulator game.",
-  },
-  {
-    id: "ezNAIVwkDsk",
     title: "Hope Factor menu",
     tags: ["UI"],
     summary:
       "The main menu for Hope Factor, the game built around the grappling system.",
+    media: youtube("ezNAIVwkDsk"),
   },
 ];
 
@@ -102,16 +137,11 @@ export const strengths = [
   "UI and frontend scripting",
 ];
 
-export const record = [
+// An entry can link out with href + linkLabel (e.g. a Roblox game page).
+export const record: { name: string; detail: string; href?: string; linkLabel?: string }[] = [
   {
-    name: "80,000+ players",
+    name: "2.2M+ players",
     detail: "Total players on a project I scripted for, with every development goal met.",
-  },
-  {
-    name: "Blackhole Treasure Incremental",
-    detail: "A live Roblox game I've worked on.",
-    href: "https://www.roblox.com/games/70607966869797/Blackhole-Treasure-Incremental",
-    linkLabel: "Play on Roblox",
   },
   {
     name: "SkillsUSA",
