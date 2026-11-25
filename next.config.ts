@@ -7,8 +7,8 @@ const nextConfig: NextConfig = {
     // YouTube thumbnails for the gameplay clips
     remotePatterns: [{ protocol: "https", hostname: "i.ytimg.com", pathname: "/vi/**" }],
   },
-  cacheComponents: true,
-  partialPrefetching: true,
+  // No cacheComponents / partialPrefetching: they enable PPR, which a static
+  // export (GitHub Pages) can't serve, and `next build` fails with them on.
   turbopack: {
     rules: {
       "*.css": {
